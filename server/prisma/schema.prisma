@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id            String    @id @default(uuid())
+  name          String
+  shopifyDomain String    @unique
+  accessToken   String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  customers     Customer[]
+  orders        Order[]
+  products      Product[]
+  events        Event[]
+}
+
+model Customer {
+  id          String   @id @default(uuid())
+  shopifyId   String
+  firstName   String
+  lastName    String
+  email       String
+  phone       String?
+  totalSpent  Float    @default(0)
+  ordersCount Int      @default(0)
+  city        String?
+  country     String?
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  orders      Order[]
+  events      Event[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([tenantId, shopifyId])
+}
+
+model Order {
+  id              String   @id @default(uuid())
+  shopifyId       String
+  orderNumber     Int
+  totalPrice      Float
+  subtotal        Float?
+  tax             Float?
+  shipping        Float?
+  currency        String   @default("USD")
+  financialStatus String?
+  fulfillmentStatus String?
+  itemsCount      Int      @default(1)
+  customerId      String
+  customer        Customer @relation(fields: [customerId], references: [id])
+  tenantId        String
+  tenant          Tenant   @relation(fields: [tenantId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([tenantId, shopifyId])
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  shopifyId   String
+  title       String
+  description String?
+  vendor      String?
+  productType String?
+  price       Float?
+  compareAtPrice Float?
+  inventory   Int      @default(0)
+  imageUrl    String?
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([tenantId, shopifyId])
+}
+
+model Event {
+  id         String   @id @default(uuid())
+  eventType  String   // cart_abandoned, checkout_started, product_viewed, etc.
+  eventData  String?  // JSON string with event details
+  customerId String?
+  customer   Customer? @relation(fields: [customerId], references: [id])
+  tenantId   String
+  tenant     Tenant   @relation(fields: [tenantId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("user")
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

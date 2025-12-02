@@ -1,0 +1,43 @@
+{
+  "name": "shopify-intelligence-platform",
+  "version": "2.0.0",
+  "description": "AI-Powered Multi-Tenant Shopify Analytics Platform",
+  "author": "Your Name",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "scripts": {
+    "install-all": "npm install && cd client && npm install && cd ../server && npm install",
+    "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
+    "build": "cd client && npm install && npm run build && cd ../server && npm install",
+    "start": "cd server && npm start",
+    "vercel-build": "cd client && npm install && npm run build",
+    "prisma:generate": "cd server && npx prisma generate",
+    "prisma:migrate": "cd server && npx prisma migrate deploy",
+    "test": "echo 'Running tests...' && cd server && npm test && cd ../client && npm test",
+    "lint": "cd server && npm run lint && cd ../client && npm run lint",
+    "clean": "rm -rf node_modules client/node_modules server/node_modules client/dist server/dist"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "keywords": [
+    "shopify",
+    "analytics",
+    "ai",
+    "dashboard",
+    "react",
+    "nodejs",
+    "vercel"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/shopify-intelligence"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/shopify-intelligence/issues"
+  },
+  "homepage": "https://github.com/yourusername/shopify-intelligence#readme"
+}
