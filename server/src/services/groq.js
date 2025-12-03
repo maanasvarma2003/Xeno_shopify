@@ -1,7 +1,10 @@
 const Groq = require('groq-sdk');
 
+if (!process.env.GROQ_API_KEY) {
+    throw new Error('GROQ_API_KEY environment variable is required.');
+}
 const groq = new Groq({
-    apiKey: process.env.GROQ_API_KEY || 'REMOVED'
+    apiKey: process.env.GROQ_API_KEY
 });
 
 const getInsights = async (data) => {
