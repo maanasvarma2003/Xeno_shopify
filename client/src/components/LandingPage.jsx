@@ -146,16 +146,6 @@ export default function LandingPage() {
     const scaleProgress = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
     const opacityProgress = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-    useEffect(() => {
-        const handleMouseMove = (e) => {
-            setMousePosition({ x: e.clientX, y: e.clientY });
-        };
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, []);
-
     return (
         <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/40 text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
             {/* Advanced 3D Background */}

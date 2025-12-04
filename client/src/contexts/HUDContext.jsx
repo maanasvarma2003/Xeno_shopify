@@ -3,6 +3,7 @@ import { Eye, EyeOff } from 'lucide-react';
 
 const HUDContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useHUD = () => {
     const context = useContext(HUDContext);
     if (!context) {

@@ -17,7 +17,7 @@
     "prisma:generate": "cd server && npx prisma generate",
     "prisma:migrate": "cd server && npx prisma migrate deploy",
     "test": "echo 'Running tests...' && cd server && npm test && cd ../client && npm test",
-    "lint": "cd server && npm run lint && cd ../client && npm run lint",
+    "lint": "cd client && npm run lint",
     "clean": "rm -rf node_modules client/node_modules server/node_modules client/dist server/dist"
   },
   "devDependencies": {

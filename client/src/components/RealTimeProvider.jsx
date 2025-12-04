@@ -3,6 +3,7 @@ import { socket } from '../services/socket';
 
 const RealTimeContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useRealTime = () => useContext(RealTimeContext);
 
 export const RealTimeProvider = ({ children }) => {

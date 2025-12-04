@@ -1,6 +1,40 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Activity, Cpu, HardDrive, Zap, TrendingUp, AlertCircle } from 'lucide-react';
+import { Activity, Cpu, HardDrive, Zap, TrendingUp } from 'lucide-react';
+
+const MetricCard = ({ icon: IconComponent, label, value, unit, status = 'good' }) => {
+    const statusColors = {
+        good: 'from-green-500 to-emerald-600',
+        warning: 'from-yellow-500 to-orange-600',
+        critical: 'from-red-500 to-rose-600'
+    };
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="relative overflow-hidden rounded-xl bg-white/80 backdrop-blur-sm border border-slate-200 p-4 shadow-lg"
+        >
+            <div className="flex items-center justify-between mb-3">
+                <div className={`p-2.5 rounded-lg bg-gradient-to-br ${statusColors[status]} text-white shadow-md`}>
+                    <IconComponent className="w-5 h-5" />
+                </div>
+                <div className="flex items-center gap-1 text-xs font-bold text-green-600">
+                    <TrendingUp className="w-3 h-3" />
+                    <span>Live</span>
+                </div>
+            </div>
+            <h4 className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">{label}</h4>
+            <div className="flex items-baseline gap-1">
+                <span className="text-2xl font-extrabold text-slate-800">{value}</span>
+                <span className="text-sm font-medium text-slate-400">{unit}</span>
+            </div>
+
+            {/* Animated pulse effect */}
+            <div className="absolute -bottom-2 -right-2 w-24 h-24 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl animate-pulse"></div>
+        </motion.div>
+    );
+};
 
 export default function PerformanceMonitor() {
     const [metrics, setMetrics] = useState({
@@ -27,40 +61,6 @@ export default function PerformanceMonitor() {
         const interval = setInterval(updateMetrics, 3000);
         return () => clearInterval(interval);
     }, []);
-
-    const MetricCard = ({ icon: Icon, label, value, unit, status = 'good' }) => {
-        const statusColors = {
-            good: 'from-green-500 to-emerald-600',
-            warning: 'from-yellow-500 to-orange-600',
-            critical: 'from-red-500 to-rose-600'
-        };
-
-        return (
-            <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="relative overflow-hidden rounded-xl bg-white/80 backdrop-blur-sm border border-slate-200 p-4 shadow-lg"
-            >
-                <div className="flex items-center justify-between mb-3">
-                    <div className={`p-2.5 rounded-lg bg-gradient-to-br ${statusColors[status]} text-white shadow-md`}>
-                        <Icon className="w-5 h-5" />
-                    </div>
-                    <div className="flex items-center gap-1 text-xs font-bold text-green-600">
-                        <TrendingUp className="w-3 h-3" />
-                        <span>Live</span>
-                    </div>
-                </div>
-                <h4 className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">{label}</h4>
-                <div className="flex items-baseline gap-1">
-                    <span className="text-2xl font-extrabold text-slate-800">{value}</span>
-                    <span className="text-sm font-medium text-slate-400">{unit}</span>
-                </div>
-
-                {/* Animated pulse effect */}
-                <div className="absolute -bottom-2 -right-2 w-24 h-24 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl animate-pulse"></div>
-            </motion.div>
-        );
-    };
 
     return (
         <motion.div

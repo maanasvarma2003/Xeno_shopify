@@ -39,9 +39,13 @@ export default function LiveSalesTicker() {
             };
         };
 
-        // Add initial sales
-        const initialSales = Array.from({ length: 5 }, generateSale);
-        setSales(initialSales);
+        // Initialize with sales
+        setSales(prevSales => {
+            if (prevSales.length === 0) {
+                return Array.from({ length: 5 }, generateSale);
+            }
+            return prevSales;
+        });
 
         // Add new sale every 3-5 seconds
         const interval = setInterval(() => {
