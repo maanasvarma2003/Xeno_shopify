@@ -191,9 +191,9 @@
 
 ### Prerequisites
 
-- **Node.js**: v16.0.0 or higher
+- **Node.js**: v18.0.0 or higher
 - **npm**: v8.0.0 or higher
-- **MySQL**: v8.0 or higher
+- **PostgreSQL**: v14.0 or higher (or Neon/Vercel Postgres)
 - **Git**: Latest version
 - **Modern Browser**: Chrome 90+ or Edge 90+ (for full features)
 
@@ -207,19 +207,11 @@ cd xeno_task
 ```
 
 #### 2. Database Setup
+Use a PostgreSQL provider like **Neon** or **Vercel Postgres**.
 
 ```bash
-# Login to MySQL
-mysql -u root -p
-
-# Create database
-CREATE DATABASE shopify_intelligence;
-
-# Create user (optional)
-CREATE USER 'shopify_user'@'localhost' IDENTIFIED BY 'your_password';
-GRANT ALL PRIVILEGES ON shopify_intelligence.* TO 'shopify_user'@'localhost';
-FLUSH PRIVILEGES;
-EXIT;
+# Example: Set up local PostgreSQL
+createdb shopify_intelligence
 ```
 
 #### 3. Server Configuration
