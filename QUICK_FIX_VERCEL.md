@@ -8,16 +8,18 @@ The "Invalid Credentials" and "Failed to Register" errors have been **fixed** in
 
 ## 🔧 What Was Fixed
 
-### File: `client/src/api.js`
-Changed API baseURL from hardcoded `localhost` to **environment-aware**:
+### 1. API Configuration (Fixed)
+Changed API baseURL from hardcoded `localhost` to **environment-aware** in `client/src/api.js`.
 
-```javascript
-// Before (BROKEN on Vercel):
-baseURL: 'http://localhost:3000/api'
+### 2. Database Configuration (Fixed)
+Switched from **SQLite** (incompatible with Vercel) to **PostgreSQL** (Serverless compatible).
 
-// After (WORKS on Vercel):
-baseURL: import.meta.env.VITE_API_URL || 
-         (import.meta.env.MODE === 'production' ? '/api' : 'http://localhost:3000/api')
+**File Updated**: `server/prisma/schema.prisma`
+```prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 ```
 
 ---
@@ -34,7 +36,7 @@ git push origin main
 - Builds and deploys your app
 - Usually takes 2-5 minutes
 
-### 3. Set Environment Variables in Vercel
+### 3. Set Environment Variables in Vercel (CRITICAL)
 
 Go to: **Vercel Dashboard → Your Project → Settings → Environment Variables**
 
@@ -42,9 +44,13 @@ Add these:
 
 | Variable | Value | Required |
 |----------|-------|----------|
-| `DATABASE_URL` | Your database connection string | ✅ YES |
+| `DATABASE_URL` | Your PostgreSQL connection string | ✅ YES |
 | `GROQ_API_KEY` | Your Groq API key | ✅ YES |
 | `NODE_ENV` | `production` | ✅ YES |
+
+#### How to get DATABASE_URL:
+1. **Vercel Dashboard** → **Storage** → **Create Database** → **Postgres**
+2. Copy the connection string provided by Vercel.
 
 ### 4. Test Your Deployed App
 
@@ -58,41 +64,13 @@ Test:
 
 ---
 
-## ⚠️ Important Notes
-
-### Database Issue
-
-If you're using **SQLite** (default), it **won't work** on Vercel.
-
-**Solution**: Switch to PostgreSQL or MySQL
-
-#### Quick PostgreSQL Setup:
-
-1. **Vercel Dashboard** → **Storage** → **Create Database** → **Postgres**
-2. Copy the `DATABASE_URL`
-3. Add to environment variables
-4. Update `server/prisma/schema.prisma`:
-   ```prisma
-   datasource db {
-     provider = "postgresql"  // Change from "sqlite"
-     url      = env("DATABASE_URL")
-   }
-   ```
-5. Redeploy
-
----
-
 ## 🔍 Verify It's Working
 
 ### Check API Connection:
 ```bash
 curl https://your-app.vercel.app/api/health
 ```
-
-Should return:
-```json
-{"status":"OK","uptime":12345}
-```
+Should return: `{"status":"OK","uptime":...}`
 
 ### Check in Browser Console (F12):
 - Go to Network tab
@@ -126,7 +104,7 @@ Should return:
 - [ ] Code pushed to GitHub
 - [ ] Vercel auto-deployed (check status)
 - [ ] Environment variables set
-- [ ] Database connected (if using PostgreSQL/MySQL)
+- [ ] Database connected (PostgreSQL)
 - [ ] `/api/health` returns OK
 - [ ] Can register new account on deployed URL
 - [ ] Can login with registered credentials

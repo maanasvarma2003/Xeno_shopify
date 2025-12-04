@@ -51,12 +51,12 @@ Before deploying, you need:
 3. Click **Create Database** → **Postgres**
 4. Copy the connection string
 
-5. **Update Prisma Schema** for PostgreSQL:
+5. **Prisma Schema is ALREADY Updated** for PostgreSQL:
 
-Edit `server/prisma/schema.prisma`:
+The `server/prisma/schema.prisma` file is now configured for PostgreSQL by default:
 ```prisma
 datasource db {
-  provider = "postgresql"  // Changed from "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 ```
