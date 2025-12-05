@@ -1,3 +1,5 @@
+DASHBOARD PAGE
+
 <img width="1472" height="759" alt="image" src="https://github.com/user-attachments/assets/fe0b5705-8066-41c6-995e-b14ca4e21e90" />
 
 <img width="957" height="708" alt="image" src="https://github.com/user-attachments/assets/98884bb2-b26f-4b0e-b3af-8383f09719c6" />
