@@ -10,7 +10,13 @@ DASHBOARD PAGE
 
 <img width="944" height="819" alt="image" src="https://github.com/user-attachments/assets/1d5bdd90-efc6-4241-b5b4-43cd3da46cdd" />
 
+REGISTER PAGE
 
+<img width="1369" height="857" alt="image" src="https://github.com/user-attachments/assets/08f8ee48-affa-4248-82f2-263def91aef0" />
+
+LOGIN PAGE
+
+<img width="613" height="747" alt="image" src="https://github.com/user-attachments/assets/729ff16c-873d-43b8-8fee-b3cabc6c8227" />
 
 
 
